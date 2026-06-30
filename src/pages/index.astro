@@ -1,0 +1,595 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { financing, realEstate, products, exclusive } from '../data/services';
+
+const LOGO = '/enigma-logo-redgold.png';
+// 👉 REEMPLAZAR por el enlace real de Cal.com del cliente, ej: 'felix-enigma/consultation'
+const CAL_LINK = 'TU_USUARIO/consultation';
+const navLinks = [
+  ['#services', 'Services'], ['#financing', 'Financing'],
+  ['#realestate', 'Real Estate'], ['#education', 'Education'],
+  ['#schedule', 'Schedule'], ['#contact', 'Contact'],
+];
+const points = [
+  ['Consulting & Referral Model', 'We connect you to the right source of capital — no balance sheet of our own to protect.'],
+  ['A Personalized Approach', 'Every introduction is tailored to your goals, your timeline, and your numbers.'],
+  ['Compliance First', 'We work only with licensed lenders, and final decisions always rest with them.'],
+];
+const stats = [
+  ['100', '$', 'M+', 'Capital Range Accessed'],
+  ['500', '', '+', 'Businesses Connected'],
+  ['15', '', '+', 'Years of Experience'],
+  ['50', '', '', 'States Served'],
+];
+---
+
+<Layout>
+  <!-- ===== INTRO ===== -->
+  <div data-intro aria-hidden="true" style="position:fixed;inset:0;z-index:1000;background:radial-gradient(120% 120% at 50% 44%,#11161E,#070A0E);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:24px;animation:introOut .85s ease 1.5s forwards;">
+    <div style="position:relative;display:flex;align-items:center;justify-content:center;width:200px;height:200px;animation:introIn 1s cubic-bezier(.2,.7,.2,1) both;">
+      <div style="position:absolute;width:200px;height:200px;border-radius:50%;background:conic-gradient(from 0deg,rgba(111,19,32,0),rgba(206,85,103,.62),rgba(111,19,32,0) 50%,rgba(111,19,32,0) 65%,rgba(206,85,103,.34),rgba(111,19,32,0) 95%);-webkit-mask:radial-gradient(closest-side,transparent 71%,#000 73%,#000 79%,transparent 81%);mask:radial-gradient(closest-side,transparent 71%,#000 73%,#000 79%,transparent 81%);animation:spin 10s linear infinite;"></div>
+      <img src={LOGO} alt="" style="position:relative;width:104px;height:104px;object-fit:contain;animation:logoglow 3.5s ease-in-out infinite;" />
+    </div>
+    <span style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:24px;letter-spacing:.44em;color:#F2EEE6;padding-left:.44em;animation:introIn 1s ease .12s both;">ENIGMA</span>
+  </div>
+
+  <!-- ===== HEADER ===== -->
+  <header style="position:fixed;top:0;left:0;right:0;z-index:100;">
+    <nav data-nav style="display:flex;align-items:center;justify-content:space-between;gap:24px;height:74px;padding:0 clamp(18px,4vw,48px);transition:background .45s,backdrop-filter .45s,border-color .45s,box-shadow .45s;border-bottom:1px solid transparent;">
+      <a href="#top" style="display:flex;align-items:center;gap:13px;">
+        <img src={LOGO} alt="Enigma Enterprises LLC logo" style="width:46px;height:46px;flex:none;object-fit:contain;" />
+        <span style="display:flex;flex-direction:column;line-height:1;">
+          <span style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:23px;letter-spacing:.22em;color:#F2EEE6;">ENIGMA</span>
+          <span style="font-size:8.5px;letter-spacing:.42em;color:#6F1320;margin-top:4px;font-weight:600;">ENTERPRISES LLC</span>
+        </span>
+      </a>
+      <div data-desktop-nav style="display:flex;align-items:center;gap:34px;">
+        {navLinks.map(([href, label]) => <a class="navlink" href={href}>{label}</a>)}
+      </div>
+      <div style="display:flex;align-items:center;gap:18px;">
+        <a href="#contact" class="btn-gold" data-desktop-nav data-magnetic style="font-size:13px;letter-spacing:.06em;padding:12px 24px;">APPLY NOW</a>
+        <button data-nav-toggle aria-label="Open menu" style="display:none;width:44px;height:44px;align-items:center;justify-content:center;background:transparent;border:1px solid rgba(111,19,32,.4);border-radius:2px;cursor:pointer;flex-direction:column;gap:5px;">
+          <span style="width:20px;height:1.5px;background:#A81E2E;display:block;"></span>
+          <span style="width:20px;height:1.5px;background:#A81E2E;display:block;"></span>
+          <span style="width:20px;height:1.5px;background:#A81E2E;display:block;"></span>
+        </button>
+      </div>
+    </nav>
+    <div data-mobile-menu style="display:none;background:rgba(10,13,18,.97);backdrop-filter:blur(16px);border-bottom:1px solid rgba(111,19,32,.18);padding:18px clamp(18px,4vw,48px) 26px;flex-direction:column;gap:4px;">
+      {navLinks.map(([href, label]) => <a href={href} data-mobile-link style="color:#E8EAEE;font-size:16px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.05);">{label}</a>)}
+      <a href="#contact" data-mobile-link class="btn-gold" style="margin-top:16px;text-align:center;letter-spacing:.06em;padding:14px;">APPLY NOW</a>
+    </div>
+  </header>
+
+  <!-- ===== HERO ===== -->
+  <section id="top" style="position:relative;min-height:100vh;display:flex;align-items:center;overflow:hidden;padding:120px clamp(18px,4vw,48px) 90px;">
+    <div style="position:absolute;inset:0;overflow:hidden;pointer-events:none;">
+      <img src="/img/1486406146926-c627a92ad1ab.jpg" alt="" aria-hidden="true" fetchpriority="high" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.58;animation:kenburns 28s ease-in-out infinite alternate;" />
+      <div style="position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,rgba(10,13,18,.5),rgba(10,13,18,.78)),linear-gradient(180deg,rgba(10,13,18,.55),rgba(10,13,18,.7) 70%,#0A0D12);"></div>
+    </div>
+    <div data-parallax="0.18" style="position:absolute;top:-12%;left:-6%;width:46vw;height:46vw;max-width:680px;max-height:680px;pointer-events:none;">
+      <div style="width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,rgba(111,19,32,.22),rgba(111,19,32,0) 68%);filter:blur(20px);animation:drift 16s ease-in-out infinite;"></div>
+    </div>
+    <div data-parallax="0.28" style="position:absolute;bottom:-18%;right:-10%;width:50vw;height:50vw;max-width:720px;max-height:720px;pointer-events:none;">
+      <div style="width:100%;height:100%;border-radius:50%;background:radial-gradient(circle,rgba(224,24,24,.13),rgba(224,24,24,0) 66%);filter:blur(24px);animation:drift2 19s ease-in-out infinite;"></div>
+    </div>
+    <div style="position:relative;width:min(1180px,100%);margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:30px;">
+      <div data-reveal data-tilt style="position:relative;width:clamp(148px,16.5vw,186px);height:clamp(148px,16.5vw,186px);display:flex;align-items:center;justify-content:center;transform-style:preserve-3d;will-change:transform;margin-bottom:2px;">
+        <div style="position:absolute;inset:8%;border-radius:50%;background:radial-gradient(circle,rgba(111,19,32,.2),rgba(111,19,32,0) 70%);filter:blur(12px);animation:ringfloat 7s ease-in-out infinite;"></div>
+        <div style="position:absolute;inset:0;border-radius:50%;background:conic-gradient(from 0deg,rgba(111,19,32,0),rgba(206,85,103,.55),rgba(111,19,32,0) 45%,rgba(111,19,32,0) 60%,rgba(206,85,103,.32),rgba(111,19,32,0) 95%);-webkit-mask:radial-gradient(closest-side,transparent 80%,#000 82%,#000 85.5%,transparent 87.5%);mask:radial-gradient(closest-side,transparent 80%,#000 82%,#000 85.5%,transparent 87.5%);animation:spin 24s linear infinite;"></div>
+        <img src={LOGO} alt="Enigma Enterprises LLC monogram" style="position:relative;width:48%;height:48%;object-fit:contain;animation:logoglow 5s ease-in-out infinite;" />
+      </div>
+      <div data-reveal style="display:inline-flex;align-items:center;gap:14px;padding:9px 20px;border:1px solid rgba(111,19,32,.34);border-radius:40px;background:rgba(111,19,32,.06);">
+        <span style="width:6px;height:6px;border-radius:50%;background:#6F1320;box-shadow:0 0 10px #6F1320;"></span>
+        <span style="font-size:11.5px;letter-spacing:.34em;color:#A81E2E;font-weight:600;">PRIVATE CAPITAL &amp; BUSINESS SOLUTIONS</span>
+      </div>
+      <h1 data-reveal style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(40px,7.4vw,86px);line-height:1.04;letter-spacing:-.01em;color:#F6F2E9;max-width:16ch;">Connecting You With the Right <span style="background:linear-gradient(120deg,#A81E2E,#6F1320,#A81E2E);background-size:200% auto;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sheen 7s ease-in-out infinite;font-style:italic;">Financial Solutions</span></h1>
+      <p data-reveal style="max-width:62ch;font-size:clamp(16px,1.7vw,19px);line-height:1.7;color:#AEB4BF;font-weight:300;">We are a financial consulting and referral firm built for entrepreneurs and business owners. Through our network of private capital and licensed lenders, we open doors to the funding and strategy your next move demands.</p>
+      <div data-reveal data-hero-actions style="display:flex;gap:16px;margin-top:8px;">
+        <a href="#contact" class="btn-gold" data-magnetic style="font-size:14px;padding:17px 38px;">Apply Now</a>
+        <a href="#contact" class="btn-outline" data-magnetic style="font-size:14px;padding:17px 38px;">Request a Consultation</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COSTURA DORADA (hero → stats) ===== -->
+  <div class="seam" aria-hidden="true"></div>
+
+  <!-- ===== STATS (fondo inmersivo + cascada) ===== -->
+  <section class="bg-section sweep" data-reveal data-stagger-parent style="border-top:1px solid rgba(111,19,32,.12);border-bottom:1px solid rgba(111,19,32,.12);padding:clamp(48px,7vw,76px) clamp(18px,4vw,48px);">
+    <div class="bg-layer"><img src="/img/1554260570-9140fd3b7614.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" /></div>
+    <div class="bg-veil" style="background:linear-gradient(180deg,rgba(10,13,18,.82),rgba(12,16,23,.86));"></div>
+    <div style="width:min(1180px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;text-align:center;">
+      {stats.map(([count, pre, suf, label], i) => (
+        <div data-stagger style={`--i:${i};display:flex;flex-direction:column;gap:10px;padding:14px;${i > 0 ? 'border-left:1px solid rgba(111,19,32,.12);' : ''}`}>
+          <span data-count={count} data-pre={pre} data-suf={suf} style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(40px,5vw,58px);color:#A81E2E;line-height:1;">{pre}0{suf}</span>
+          <span style="font-size:12px;letter-spacing:.16em;color:#969CA8;text-transform:uppercase;">{label}</span>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- ===== MARQUEE / TRUST STRIP ===== -->
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track">
+      {['Private Capital', 'Credit Repair', 'Business Credit', 'Real Estate Funding', 'Merchant Services', 'Hard Money', 'Trust Education', 'Personal Funding'].concat(['Private Capital', 'Credit Repair', 'Business Credit', 'Real Estate Funding', 'Merchant Services', 'Hard Money', 'Trust Education', 'Personal Funding']).map((w) => (
+        <span class="marquee-item">{w}</span>
+      ))}
+    </div>
+  </div>
+
+  <!-- ===== COSTURA DORADA (services) ===== -->
+  <div class="seam" aria-hidden="true"></div>
+
+  <!-- ===== WHAT WE DO ===== -->
+  <section id="services" style="padding:clamp(80px,11vw,140px) clamp(18px,4vw,48px);">
+    <div data-split style="width:min(1180px,100%);margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,80px);align-items:center;">
+      <div data-reveal="left" style="display:flex;flex-direction:column;gap:26px;">
+        <span class="eyebrow">WHAT WE DO</span>
+        <h2 class="h2">A consulting partner, not a lender.</h2>
+        <p style="font-size:16.5px;line-height:1.75;color:#AEB4BF;font-weight:300;">Enigma Enterprises operates as a referral and advisory firm. We do not issue loans or hold deposits. Instead, we study your situation, then match you with the private capital networks and licensed lenders best positioned to say yes — with strategy and compliance guiding every introduction.</p>
+        <div style="display:flex;flex-direction:column;gap:18px;margin-top:4px;">
+          {points.map(([t, d], i) => (
+            <div style="display:flex;gap:16px;align-items:flex-start;">
+              <span style="flex:none;margin-top:3px;width:30px;height:30px;border-radius:50%;border:1px solid rgba(111,19,32,.45);display:flex;align-items:center;justify-content:center;color:#A81E2E;font-family:'Bodoni Moda',serif;font-size:15px;">{i + 1}</span>
+              <div><h4 style="margin:0 0 5px;font-size:16px;color:#F0ECE3;font-weight:600;font-family:var(--font-sans);">{t}</h4><p style="margin:0;font-size:14.5px;color:#9AA0AB;line-height:1.6;font-weight:300;">{d}</p></div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div data-reveal="right" style="position:relative;">
+        <div style="position:absolute;inset:-1px;border-radius:4px;background:linear-gradient(135deg,rgba(111,19,32,.5),rgba(111,19,32,0) 55%);"></div>
+        <div style="position:relative;height:clamp(360px,46vw,520px);border-radius:4px;overflow:hidden;">
+          <img src="/img/1521791136064-7986c2920216.jpg" alt="Two business professionals shaking hands to close a financing agreement" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kenburns 24s ease-in-out infinite alternate;" />
+          <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,13,18,.12),rgba(10,13,18,.62));"></div>
+          <div style="position:absolute;left:24px;bottom:22px;display:flex;align-items:center;gap:11px;">
+            <span style="width:7px;height:7px;border-radius:50%;background:#6F1320;box-shadow:0 0 10px #6F1320;"></span>
+            <span style="font-size:12.5px;letter-spacing:.16em;color:#E8E2D4;text-transform:uppercase;font-weight:600;">Relationships that close deals</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINANCING (TABS) — borde diagonal + fondo inmersivo ===== -->
+  <section id="financing" class="bg-section clip-top sweep" style="padding:clamp(96px,12vw,150px) clamp(18px,4vw,48px) clamp(72px,9vw,120px);">
+    <div class="bg-layer"><img src="/img/1620714223084-8fcacc6dfd8d.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" /></div>
+    <div class="bg-veil" style="background:linear-gradient(180deg,rgba(8,11,16,.93),rgba(12,16,23,.88) 50%,rgba(8,11,16,.93));"></div>
+    <div style="width:min(1180px,100%);margin:0 auto;">
+      <div data-reveal style="text-align:center;display:flex;flex-direction:column;gap:16px;align-items:center;margin-bottom:46px;">
+        <span class="eyebrow">FINANCING SOLUTIONS</span>
+        <h2 class="h2" style="max-width:18ch;">Capital for every stage of your ambition.</h2>
+        <p class="lead" style="max-width:60ch;">Explore our solutions by category. Each one connects you to vetted lenders within our network.</p>
+      </div>
+      <div data-tabrow style="display:flex;justify-content:center;gap:8px;margin-bottom:44px;border-bottom:1px solid rgba(111,19,32,.14);">
+        {['Personal & Business', 'Real Estate', 'Products & Requirements'].map((t, i) => (
+          <button data-tab-btn={i} style="position:relative;background:transparent;border:none;cursor:pointer;padding:16px 22px;font-size:14px;font-weight:600;letter-spacing:.04em;color:#8B919C;transition:color .3s;">
+            {t}<span data-tab-underline style="position:absolute;left:14px;right:14px;bottom:-1px;height:2px;background:linear-gradient(90deg,#A81E2E,#6F1320);display:none;"></span>
+          </button>
+        ))}
+      </div>
+
+      <div data-tab-panel="0" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px;">
+        {financing.map((c, i) => (
+          <div class="card" data-reveal data-spot style={`transition-delay:${(i * 0.09).toFixed(2)}s`}>
+            <div class="card-img"><img src={c.img} alt={c.name} loading="lazy" decoding="async" /></div>
+            <div class="card-body">
+              <span class="card-rule"></span>
+              <h3 class="card-title">{c.name}</h3>
+              <p class="card-desc">{c.desc}</p>
+              <a href="#contact" class="gold-link" style="margin-top:auto;padding-top:14px;">Explore this option →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div data-tab-panel="1" style="display:none;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:22px;">
+        {realEstate.map((c, i) => (
+          <div class="card" data-reveal data-spot style={`transition-delay:${(i * 0.09).toFixed(2)}s`}>
+            <div class="card-img"><img src={c.img} alt={c.name} loading="lazy" decoding="async" /></div>
+            <div class="card-body">
+              <span class="card-rule"></span>
+              <h3 class="card-title">{c.name}</h3>
+              <p class="card-desc">{c.desc}</p>
+              <a href="#contact" class="gold-link" style="margin-top:auto;padding-top:14px;">Explore this option →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div data-tab-panel="2" style="display:none;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:22px;">
+        {products.map((p, i) => (
+          <div class="card" data-reveal data-spot style={`padding:32px 28px;gap:14px;transition-delay:${(i * 0.09).toFixed(2)}s`}>
+            <h3 class="card-title">{p.name}</h3>
+            <p class="card-desc" style="font-size:14px;">{p.desc}</p>
+            <div style="display:flex;flex-direction:column;margin-top:2px;">
+              {p.specs.map((s) => (
+                <div style="display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:9px 0;border-top:1px solid rgba(255,255,255,.06);">
+                  <span style="font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#888E99;">{s.k}</span>
+                  <span style="font-size:13.5px;font-weight:600;color:#A81E2E;text-align:right;">{s.v}</span>
+                </div>
+              ))}
+            </div>
+            <a href="#contact" class="gold-link" style="margin-top:auto;padding-top:6px;">Check eligibility →</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== UK SYNDICATE ===== -->
+  <section id="realestate" style="padding:clamp(72px,9vw,120px) clamp(18px,4vw,48px);">
+    <div data-reveal="clip" style="width:min(1180px,100%);margin:0 auto;position:relative;border-radius:5px;overflow:hidden;border:1px solid rgba(111,19,32,.25);">
+      <div style="position:absolute;inset:0;overflow:hidden;">
+        <img src="/img/1480714378408-67cf0d13bc1b.jpg" alt="Aerial view of a financial-district skyline at dusk" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kenburns2 30s ease-in-out infinite alternate;" />
+      </div>
+      <div style="position:absolute;inset:0;background:linear-gradient(110deg,rgba(8,11,16,.94) 32%,rgba(8,11,16,.6) 70%,rgba(8,11,16,.4)),radial-gradient(80% 120% at 110% 50%,rgba(111,19,32,.18),rgba(8,11,16,0) 60%);"></div>
+      <div style="position:relative;padding:clamp(44px,6vw,80px) clamp(28px,5vw,72px);display:flex;flex-direction:column;gap:20px;max-width:680px;">
+        <span style="font-size:11px;letter-spacing:.34em;color:#A81E2E;font-weight:600;">FLAGSHIP PROGRAM</span>
+        <h2 style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(34px,5vw,60px);line-height:1.05;color:#F8F4EB;">UK Base Syndicate Program</h2>
+        <div style="display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;">
+          <span style="font-family:'Bodoni Moda',serif;font-size:clamp(30px,4vw,46px);font-weight:600;color:#A81E2E;">$3M – $100M</span>
+          <span style="font-size:13px;letter-spacing:.1em;color:#AEB4BF;text-transform:uppercase;">institutional capital syndication</span>
+        </div>
+        <p style="font-size:16px;line-height:1.7;color:#C4C9D1;font-weight:300;max-width:54ch;">Our most exclusive offering — structured syndicated capital for large-scale acquisitions, development, and commercial real estate ventures, sourced through an international network of private investors and institutions.</p>
+        <a href="#contact" class="btn-gold" style="align-self:flex-start;margin-top:6px;font-size:13.5px;padding:15px 34px;">Inquire About Syndication</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COSTURA DORADA (exclusive) ===== -->
+  <div class="seam" aria-hidden="true"></div>
+
+  <!-- ===== EXCLUSIVE — fondo inmersivo ===== -->
+  <section class="bg-section" style="padding:clamp(56px,7vw,90px) clamp(18px,4vw,48px) clamp(72px,9vw,120px);">
+    <div class="bg-layer"><img src="/img/1507679799987-c73779587ccf.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" /></div>
+    <div class="bg-veil" style="background:linear-gradient(180deg,rgba(10,13,18,.9),rgba(8,11,16,.92));"></div>
+    <div style="width:min(1180px,100%);margin:0 auto;">
+      <div data-reveal style="display:flex;flex-direction:column;gap:14px;margin-bottom:42px;">
+        <span class="eyebrow">EXCLUSIVE SERVICES</span>
+        <h2 class="h2">Beyond funding — building the foundation.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:rgba(111,19,32,.14);border:1px solid rgba(111,19,32,.14);border-radius:3px;overflow:hidden;">
+        {exclusive.map((c, i) => (
+          <div data-reveal="flip" data-ex style={`background:#0B0F15;padding:36px 30px;display:flex;flex-direction:column;gap:12px;min-height:200px;transition-delay:${(i * 0.08).toFixed(2)}s;`}>
+            <span style="font-family:'Bodoni Moda',serif;font-size:20px;color:#6F1320;">0{c.n}</span>
+            <h3 style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:22px;color:#F2EEE6;line-height:1.15;">{c.name}</h3>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:#9AA0AB;font-weight:300;">{c.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MERCHANT SERVICES — bordes diagonales + fondo ===== -->
+  <section class="bg-section clip-both sweep" style="padding:clamp(92px,11vw,128px) clamp(18px,4vw,48px);">
+    <div class="bg-layer"><img src="/img/1556742502-ec7c0e9f34b1.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" /></div>
+    <div class="bg-veil" style="background:linear-gradient(180deg,rgba(8,11,16,.9),rgba(12,16,23,.85),rgba(8,11,16,.9));"></div>
+    <div data-reveal="zoom" data-split style="width:min(1100px,100%);margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;border:1px solid rgba(111,19,32,.18);border-radius:4px;padding:clamp(34px,4vw,56px);background:rgba(255,255,255,.025);backdrop-filter:blur(8px);">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <span class="eyebrow">MERCHANT SERVICES</span>
+        <h2 style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(28px,3.6vw,42px);line-height:1.12;color:#F4F0E8;">Free credit card processing review.</h2>
+        <p style="font-size:15.5px;line-height:1.7;color:#AEB4BF;font-weight:300;max-width:54ch;">Most businesses overpay on card processing fees. We'll audit your current statements at no cost and show you exactly where margin is leaking — and how to recover it.</p>
+      </div>
+      <a href="#contact" class="btn-outline" style="flex:none;text-align:center;font-size:14px;padding:16px 32px;">Get a Free Fee Review</a>
+    </div>
+  </section>
+
+  <!-- ===== EDUCATION ===== -->
+  <section id="education" style="padding:clamp(72px,9vw,120px) clamp(18px,4vw,48px);">
+    <div style="width:min(1180px,100%);margin:0 auto;">
+      <div data-reveal style="text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center;margin-bottom:44px;">
+        <span class="eyebrow">EDUCATION</span>
+        <h2 class="h2" style="max-width:20ch;">Knowledge is the first form of capital.</h2>
+      </div>
+      <div data-split style="display:grid;grid-template-columns:1fr 1fr;gap:24px;">
+        <div data-reveal="left" class="lift" style="position:relative;overflow:hidden;border:1px solid rgba(111,19,32,.2);border-radius:4px;padding:clamp(34px,4vw,52px);background:linear-gradient(155deg,rgba(12,16,23,.72),rgba(8,11,16,.93)),url('/img/1450101499163-c8848c66ca85.jpg') center/cover;display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:11px;letter-spacing:.28em;color:#6F1320;font-weight:600;">SIGNATURE PROGRAM</span>
+          <h3 style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(26px,3vw,36px);color:#F4F0E8;line-height:1.1;">Wealthy Trustee Program</h3>
+          <p style="font-size:15px;line-height:1.7;color:#AEB4BF;font-weight:300;">A deep education in trusts, asset protection, and generational wealth structures — designed to help you hold and transfer what you build with intention and discretion.</p>
+          <a href="#contact" class="gold-link" style="margin-top:6px;font-size:13.5px;">Join the Program →</a>
+        </div>
+        <div data-reveal="right" class="lift" style="position:relative;overflow:hidden;border:1px solid rgba(111,19,32,.2);border-radius:4px;padding:clamp(34px,4vw,52px);background:linear-gradient(155deg,rgba(12,16,23,.72),rgba(8,11,16,.93)),url('/img/1600880292203-757bb62b4baf.jpg') center/cover;display:flex;flex-direction:column;gap:16px;">
+          <span style="font-size:11px;letter-spacing:.28em;color:#6F1320;font-weight:600;">FREE WEBINAR</span>
+          <h3 style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(26px,3vw,36px);color:#F4F0E8;line-height:1.1;">Business Acquisition Webinar</h3>
+          <p style="font-size:15px;line-height:1.7;color:#AEB4BF;font-weight:300;">Learn how to buy existing, cash-flowing businesses — sourcing, valuation, deal structure, and the funding that makes acquisitions possible. Live, free, and no obligation.</p>
+          <a href="#contact" class="gold-link" style="margin-top:6px;font-size:13.5px;">Reserve My Seat →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CINEMATIC DIVIDER ===== -->
+  <section style="position:relative;height:clamp(420px,60vh,620px);overflow:hidden;display:flex;align-items:center;justify-content:center;text-align:center;">
+    <div data-parallax="0.16" style="position:absolute;top:-15%;left:0;right:0;height:130%;overflow:hidden;">
+      <img src="/img/1449824913935-59a10b8d2000.jpg" alt="City financial district illuminated at night" loading="lazy" decoding="async" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;animation:kenburns 32s ease-in-out infinite alternate;" />
+    </div>
+    <div style="position:absolute;inset:0;background:radial-gradient(120% 100% at 50% 50%,rgba(10,13,18,.55),rgba(10,13,18,.82)),linear-gradient(180deg,#0A0D12,rgba(10,13,18,0) 18%,rgba(10,13,18,0) 82%,#0A0D12);"></div>
+    <img src={LOGO} alt="" aria-hidden="true" style="position:absolute;width:min(440px,62vw);height:auto;opacity:.06;pointer-events:none;animation:ringfloat 11s ease-in-out infinite;" />
+    <div data-reveal="zoom" style="position:relative;width:min(880px,90%);display:flex;flex-direction:column;align-items:center;gap:22px;padding:0 20px;">
+      <span style="font-size:11.5px;letter-spacing:.4em;color:#A81E2E;font-weight:600;">THE ENIGMA STANDARD</span>
+      <p style="margin:0;font-family:'Bodoni Moda',serif;font-weight:500;font-style:italic;font-size:clamp(26px,4.4vw,52px);line-height:1.22;color:#F8F4EB;text-wrap:balance;">"Capital is everywhere. The difference is knowing exactly where it belongs — and who to trust to place it."</p>
+      <span style="width:54px;height:2px;background:linear-gradient(90deg,#A81E2E,#6F1320);"></span>
+    </div>
+  </section>
+
+  <!-- ===== PARTNER ===== -->
+  <section style="padding:clamp(60px,7vw,100px) clamp(18px,4vw,48px);">
+    <div data-reveal style="width:min(1100px,100%);margin:0 auto;text-align:center;border:1px solid rgba(111,19,32,.2);border-radius:5px;padding:clamp(44px,6vw,76px) clamp(28px,5vw,64px);background:radial-gradient(120% 140% at 50% 0%,rgba(111,19,32,.14),rgba(10,13,18,0) 55%),linear-gradient(180deg,rgba(8,11,16,.82),rgba(8,11,16,.93)),url('/img/1556761175-b413da4baf72.jpg') center/cover;display:flex;flex-direction:column;align-items:center;gap:20px;">
+      <span class="eyebrow">BECOME A PARTNER</span>
+      <h2 class="h2" style="max-width:18ch;">Start Your Own Funding Agency.</h2>
+      <p class="lead" style="max-width:58ch;">Join our affiliate program and build a business around the capital network we've spent years developing. We provide the lenders, the products, and the playbook — you bring the relationships.</p>
+      <a href="#contact" class="btn-gold" style="margin-top:6px;font-size:14px;padding:16px 38px;">Become an Affiliate</a>
+    </div>
+  </section>
+
+  <!-- ===== COSTURA DORADA (schedule) ===== -->
+  <div class="seam" aria-hidden="true"></div>
+
+  <!-- ===== SCHEDULE / AGENDA (Cal.com) ===== -->
+  <section id="schedule" style="padding:clamp(72px,9vw,120px) clamp(18px,4vw,48px);">
+    <div style="width:min(960px,100%);margin:0 auto;">
+      <div data-reveal style="text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center;margin-bottom:40px;">
+        <span class="eyebrow">BOOK A TIME</span>
+        <h2 class="h2" style="max-width:20ch;">Schedule a consultation.</h2>
+        <p class="lead" style="max-width:56ch;">Pick a time that works for you and meet directly with our team — no back-and-forth emails.</p>
+      </div>
+      <div data-reveal="zoom" style="position:relative;border:1px solid var(--line);border-radius:5px;overflow:hidden;background:rgba(255,255,255,.025);backdrop-filter:blur(8px);">
+        <div id="cal-inline" data-cal-link={CAL_LINK} style="min-height:600px;width:100%;"></div>
+        <div data-cal-fallback style="display:none;flex-direction:column;align-items:center;gap:16px;padding:clamp(40px,6vw,72px);text-align:center;">
+          <p class="lead" style="max-width:48ch;">Booking calendar coming soon. In the meantime, reach us directly:</p>
+          <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;">
+            <a href="https://wa.me/14134550488" target="_blank" rel="noopener" class="btn-gold" style="font-size:14px;padding:15px 30px;">Message on WhatsApp</a>
+            <a href="#contact" class="btn-outline" style="font-size:14px;padding:15px 30px;">Request via email</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COSTURA DORADA (contact) ===== -->
+  <div class="seam" aria-hidden="true"></div>
+
+  <!-- ===== CONTACT ===== -->
+  <section id="contact" style="position:relative;overflow:hidden;padding:clamp(80px,11vw,150px) clamp(18px,4vw,48px);background:linear-gradient(180deg,rgba(10,13,18,.6),rgba(12,17,24,.66));border-top:1px solid rgba(111,19,32,.12);">
+    <div style="position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:70vw;height:70vw;max-width:760px;max-height:760px;border-radius:50%;background:radial-gradient(circle,rgba(111,19,32,.1),rgba(111,19,32,0) 65%);filter:blur(20px);pointer-events:none;"></div>
+    <div data-reveal="clip" style="position:relative;width:min(680px,100%);margin:0 auto;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px;">
+      <span class="eyebrow">REQUEST A CONSULTATION</span>
+      <h2 style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(34px,5vw,62px);line-height:1.05;color:#F8F4EB;">Let's find your right solution.</h2>
+      <p class="lead" style="max-width:48ch;font-size:16.5px;">Share your email and our team will reach out to understand your goals — no cost, no obligation.</p>
+      <form data-contact-form style="margin-top:8px;display:flex;gap:12px;width:100%;max-width:520px;flex-wrap:wrap;justify-content:center;">
+        <input type="email" name="email" required placeholder="Your email address" aria-label="Your email address" class="field" style="flex:1;min-width:220px;" />
+        <button type="submit" data-contact-submit class="btn-gold" style="flex:none;font-size:14px;padding:16px 34px;">Request Consultation</button>
+      </form>
+      <p data-contact-error role="alert" style="display:none;margin:0;font-size:13.5px;color:#E8676A;">Something went wrong. Please try again or email us directly.</p>
+      <div data-contact-thanks style="display:none;margin-top:8px;flex-direction:column;align-items:center;gap:10px;padding:30px 36px;border:1px solid rgba(111,19,32,.4);border-radius:4px;background:rgba(111,19,32,.07);">
+        <span style="font-family:'Bodoni Moda',serif;font-size:26px;color:#A81E2E;">Thank you.</span>
+        <span style="font-size:14.5px;color:#C4C9D1;">A consultant will be in touch within one business day.</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:9px;margin-top:4px;">
+        <span style="width:6px;height:6px;border-radius:50%;background:#6F1320;"></span>
+        <span style="font-size:12.5px;letter-spacing:.06em;color:#969CA8;">100% Privacy Guaranteed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="background:#070A0E;border-top:1px solid rgba(111,19,32,.14);padding:clamp(56px,7vw,84px) clamp(18px,4vw,48px) 40px;">
+    <div style="width:min(1180px,100%);margin:0 auto;">
+      <div data-split style="display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;padding-bottom:48px;border-bottom:1px solid rgba(255,255,255,.06);">
+        <div style="display:flex;flex-direction:column;gap:18px;">
+          <div style="display:flex;align-items:center;gap:13px;">
+            <img src={LOGO} alt="Enigma Enterprises LLC" style="width:48px;height:48px;flex:none;object-fit:contain;" />
+            <span style="display:flex;flex-direction:column;line-height:1;">
+              <span style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:24px;letter-spacing:.2em;color:#F2EEE6;">ENIGMA</span>
+              <span style="font-size:8.5px;letter-spacing:.42em;color:#6F1320;margin-top:4px;font-weight:600;">ENTERPRISES LLC</span>
+            </span>
+          </div>
+          <p style="margin:0;max-width:38ch;font-size:14px;line-height:1.7;color:#8B919C;font-weight:300;">Private Capital &amp; Business Solutions. Connecting entrepreneurs and business owners with the right financial partners.</p>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:13px;">
+          <span style="font-size:11px;letter-spacing:.22em;color:#6F1320;font-weight:600;margin-bottom:4px;">EXPLORE</span>
+          <a class="flink" href="#services">Services</a>
+          <a class="flink" href="#financing">Financing</a>
+          <a class="flink" href="#realestate">Real Estate</a>
+          <a class="flink" href="#education">Education</a>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:13px;">
+          <span style="font-size:11px;letter-spacing:.22em;color:#6F1320;font-weight:600;margin-bottom:4px;">CONTACT</span>
+          <a class="flink" href="mailto:Felix@EnigmaEnterprisesLLC.com" style="word-break:break-word;">Felix@EnigmaEnterprisesLLC.com</a>
+          <a class="flink" href="tel:18007888023">1-800-788-8023</a>
+          <a href="#contact" class="gold-link" style="margin-top:6px;font-size:13.5px;">Request a Consultation →</a>
+        </div>
+      </div>
+      <div style="padding-top:32px;display:flex;flex-direction:column;gap:18px;">
+        <p style="margin:0;font-size:12px;line-height:1.7;color:#6E7480;font-weight:300;">Enigma Enterprises LLC is a financial consulting and referral firm. We are not a bank, lender, or direct provider of capital, and we do not make credit decisions. We connect clients with licensed lenders and private capital networks. All financing decisions, terms, rates, and approvals are made solely by third-party lenders and are subject to their review. Funding amounts and eligibility are not guaranteed. Programs and offerings described herein are illustrative and may change without notice.</p>
+        <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center;padding-top:14px;border-top:1px solid rgba(255,255,255,.05);">
+          <span style="font-size:12px;color:#6E7480;">© 2026 Enigma Enterprises LLC. All rights reserved.</span>
+          <span style="font-size:12px;color:#6E7480;letter-spacing:.04em;">Private Capital &amp; Business Solutions</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+</Layout>
+
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ---------- Intro overlay safety ----------
+  setTimeout(() => { const i = document.querySelector('[data-intro]'); if (i) (i as HTMLElement).style.display = 'none'; }, 2500);
+
+  // ---------- Scroll reveal ----------
+  const revealEls = Array.from(document.querySelectorAll('[data-reveal]')) as HTMLElement[];
+  const show = (el: Element) => el.classList.add('in');
+  if (reduce) {
+    // sin animación: mostrar todo de inmediato
+    revealEls.forEach(show);
+  } else {
+    // cada sección anima al entrar (8% visible) — se conserva la animación al hacer scroll
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((e) => { if (e.isIntersecting) { show(e.target); io.unobserve(e.target); } });
+    }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+    revealEls.forEach((el) => io.observe(el));
+  }
+
+  // ---------- Navbar scrolled state ----------
+  const nav = document.querySelector('[data-nav]') as HTMLElement | null;
+  const applyNav = () => {
+    if (!nav) return;
+    const s = (window.scrollY || 0) > 40;
+    nav.style.background = s ? 'rgba(10,13,18,0.86)' : 'transparent';
+    nav.style.backdropFilter = s ? 'blur(14px)' : 'none';
+    (nav.style as any).webkitBackdropFilter = s ? 'blur(14px)' : 'none';
+    nav.style.borderBottom = s ? '1px solid rgba(111,19,32,0.14)' : '1px solid transparent';
+    nav.style.boxShadow = s ? '0 12px 34px -20px rgba(0,0,0,0.85)' : 'none';
+  };
+  applyNav();
+
+  // ---------- Parallax (throttled con requestAnimationFrame) ----------
+  const parallaxEls = Array.from(document.querySelectorAll('[data-parallax]')) as HTMLElement[];
+  let scrollScheduled = false;
+  const onScroll = () => {
+    applyNav();
+    if (scrollScheduled) return;
+    scrollScheduled = true;
+    requestAnimationFrame(() => {
+      scrollScheduled = false;
+      const y = window.scrollY || 0;
+      for (const el of parallaxEls) {
+        const f = parseFloat(el.getAttribute('data-parallax') || '0.2');
+        el.style.translate = '0px ' + (y * f) + 'px';
+      }
+    });
+  };
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // ---------- Counters ----------
+  const countIO = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      const el = e.target as HTMLElement; countIO.unobserve(el);
+      const t = parseFloat(el.getAttribute('data-count') || '0');
+      const pre = el.getAttribute('data-pre') || '', suf = el.getAttribute('data-suf') || '';
+      const dur = 1500, st = performance.now();
+      const tick = (now: number) => {
+        const p = Math.min(1, (now - st) / dur);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = pre + Math.round(t * eased).toLocaleString() + suf;
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('[data-count]').forEach((el) => countIO.observe(el));
+
+  // ---------- Hero tilt + card spotlight (rAF + solo puntero fino) ----------
+  const heroSection = document.getElementById('top');
+  const tiltEls = Array.from(document.querySelectorAll('[data-tilt]')) as HTMLElement[];
+  const spotEls = Array.from(document.querySelectorAll('[data-spot]')) as HTMLElement[];
+  const finePointer = window.matchMedia('(pointer: fine)').matches;
+  if (finePointer && !reduce) {
+    let lastMove: MouseEvent | null = null, moveScheduled = false;
+    window.addEventListener('mousemove', (e) => {
+      lastMove = e;
+      if (moveScheduled) return;
+      moveScheduled = true;
+      requestAnimationFrame(() => {
+        moveScheduled = false;
+        const ev = lastMove; if (!ev) return;
+        const hr = heroSection?.getBoundingClientRect();
+        const inHero = !!hr && ev.clientY >= hr.top && ev.clientY <= hr.bottom
+                              && ev.clientX >= hr.left && ev.clientX <= hr.right;
+        for (const h of tiltEls) {
+          const r = h.getBoundingClientRect(); if (!r.width) continue;
+          if (!inHero) { h.style.transform = 'perspective(720px) rotateX(0deg) rotateY(0deg)'; continue; }
+          const dx = (ev.clientX - (r.left + r.width / 2)) / r.width;
+          const dy = (ev.clientY - (r.top + r.height / 2)) / r.height;
+          h.style.transform = `perspective(720px) rotateY(${(dx * 10).toFixed(2)}deg) rotateX(${(-dy * 10).toFixed(2)}deg)`;
+        }
+        for (const card of spotEls) {
+          const r = card.getBoundingClientRect();
+          const inside = ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom;
+          if (inside) {
+            const x = (ev.clientX - r.left).toFixed(0), y = (ev.clientY - r.top).toFixed(0);
+            card.style.backgroundImage = `radial-gradient(360px circle at ${x}px ${y}px, rgba(111,19,32,0.13), rgba(111,19,32,0) 62%)`;
+          } else if (card.style.backgroundImage) {
+            card.style.backgroundImage = 'none';
+          }
+        }
+      });
+    }, { passive: true });
+  }
+
+  // ---------- Exclusive hover bg ----------
+  document.querySelectorAll('[data-ex]').forEach((el) => {
+    el.addEventListener('mouseenter', () => ((el as HTMLElement).style.background = '#10151E'));
+    el.addEventListener('mouseleave', () => ((el as HTMLElement).style.background = '#0B0F15'));
+  });
+
+  // ---------- Tabs ----------
+  const tabBtns = Array.from(document.querySelectorAll('[data-tab-btn]')) as HTMLElement[];
+  const panels = Array.from(document.querySelectorAll('[data-tab-panel]')) as HTMLElement[];
+  const setTab = (idx: number) => {
+    tabBtns.forEach((b, i) => {
+      b.style.color = i === idx ? '#A81E2E' : '#8B919C';
+      const u = b.querySelector('[data-tab-underline]') as HTMLElement;
+      if (u) u.style.display = i === idx ? 'block' : 'none';
+    });
+    panels.forEach((p, i) => { p.style.display = i === idx ? 'grid' : 'none'; });
+    if (panels[idx]) panels[idx].querySelectorAll('[data-reveal]').forEach((el) => el.classList.add('in'));
+  };
+  tabBtns.forEach((b, i) => b.addEventListener('click', () => setTab(i)));
+  setTab(0);
+
+  // ---------- Mobile menu ----------
+  let mob = false;
+  const mobBtn = document.querySelector('[data-nav-toggle]');
+  const mobMenu = document.querySelector('[data-mobile-menu]') as HTMLElement;
+  mobBtn?.addEventListener('click', () => { mob = !mob; if (mobMenu) mobMenu.style.display = mob ? 'flex' : 'none'; });
+  document.querySelectorAll('[data-mobile-link]').forEach((a) =>
+    a.addEventListener('click', () => { mob = false; if (mobMenu) mobMenu.style.display = 'none'; }));
+
+  // ---------- Contact form ----------
+  const form = document.querySelector('[data-contact-form]') as HTMLFormElement;
+  const thanks = document.querySelector('[data-contact-thanks]') as HTMLElement;
+  const errBox = document.querySelector('[data-contact-error]') as HTMLElement | null;
+  const submitBtn = document.querySelector('[data-contact-submit]') as HTMLButtonElement | null;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = (new FormData(form).get('email') || '').toString().trim();
+    if (!email) return;
+    if (errBox) errBox.style.display = 'none';
+    if (submitBtn) { submitBtn.disabled = true; submitBtn.style.opacity = '0.7'; submitBtn.textContent = 'Sending…'; }
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      if (!res.ok) throw new Error('request_failed');
+      form.style.display = 'none';
+      if (thanks) thanks.style.display = 'flex';
+    } catch {
+      if (errBox) errBox.style.display = 'block';
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.style.opacity = '1'; submitBtn.textContent = 'Request Consultation'; }
+    }
+  });
+</script>
+
+<!-- Cal.com embed (is:inline para no procesar el snippet externo) -->
+<script is:inline define:vars={{ CAL_LINK }}>
+  (function () {
+    const el = document.getElementById('cal-inline');
+    const fallback = document.querySelector('[data-cal-fallback]');
+    const ready = String(CAL_LINK || '').length > 0 && !String(CAL_LINK).includes('TU_USUARIO');
+    if (!ready) {
+      if (el) el.style.display = 'none';
+      if (fallback) fallback.style.display = 'flex';
+      return;
+    }
+    (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); } else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
+    Cal("init", { origin: "https://cal.com" });
+    Cal("inline", { elementOrSelector: "#cal-inline", calLink: CAL_LINK });
+    Cal("ui", { theme: "dark", hideEventTypeDetails: false, cssVarsPerTheme: { dark: { "cal-brand": "#A81E2E" } } });
+  })();
+</script>
