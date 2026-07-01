@@ -11,46 +11,78 @@ const FROM = 'Enigma Enterprises <noreply@enigmaenterprisesllc.com>';
 const isEmail = (v: unknown): v is string =>
   typeof v === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && v.length <= 254;
 
+// Campos del formulario de solicitud (etiqueta legible por clave)
+const FIELDS: [string, string][] = [
+  ['fullName', 'Full name'],
+  ['phone', 'Phone'],
+  ['email', 'Email'],
+  ['company', 'Company'],
+  ['location', 'State / Country'],
+  ['financingType', 'Type of financing'],
+  ['amount', 'Amount requested'],
+  ['creditRange', 'Credit score range'],
+  ['timeInBusiness', 'Time in business'],
+  ['monthlyRevenue', 'Monthly revenue'],
+  ['collateral', 'Collateral available'],
+  ['role', 'Owner / Broker / Rep'],
+  ['description', 'Deal description'],
+  ['bestTime', 'Best time to contact'],
+];
+
+const clean = (v: unknown, max = 2000) =>
+  typeof v === 'string' ? v.replace(/[\r\n]{3,}/g, '\n\n').slice(0, max).trim() : '';
+
+const esc = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
 export const POST: APIRoute = async ({ request }) => {
   const json = (data: unknown, status = 200) =>
     new Response(JSON.stringify(data), { status, headers: { 'Content-Type': 'application/json' } });
 
-  // La key vive SOLO en las variables de entorno del host (Netlify), nunca en el código.
+  // La key vive SOLO en las variables de entorno del host, nunca en el código.
   const apiKey = import.meta.env.RESEND_API_KEY;
   if (!apiKey) return json({ ok: false, error: 'config' }, 500);
 
-  let email: unknown, name: unknown, message: unknown;
+  let body: Record<string, unknown> = {};
   try {
     const ct = request.headers.get('content-type') || '';
     if (ct.includes('application/json')) {
-      ({ email, name, message } = await request.json());
+      body = await request.json();
     } else {
-      const form = await request.formData();
-      email = form.get('email');
-      name = form.get('name');
-      message = form.get('message');
+      body = Object.fromEntries((await request.formData()).entries());
     }
   } catch {
     return json({ ok: false, error: 'bad_request' }, 400);
   }
 
-  if (!isEmail(email)) return json({ ok: false, error: 'invalid_email' }, 422);
+  if (!isEmail(body.email)) return json({ ok: false, error: 'invalid_email' }, 422);
 
-  const safeName = typeof name === 'string' ? name.slice(0, 120) : '';
-  const safeMsg = typeof message === 'string' ? message.slice(0, 4000) : '';
+  const rows = FIELDS.map(([key, label]) => {
+    const val = clean(body[key], key === 'description' ? 4000 : 200);
+    return { label, val: val || '—' };
+  });
+
+  const textLines = rows.map((r) => `${r.label}: ${r.val}`).join('\n');
+  const htmlRows = rows
+    .map((r) => `<tr><td style="padding:6px 14px 6px 0;color:#888;white-space:nowrap;vertical-align:top">${esc(r.label)}</td><td style="padding:6px 0;color:#111;font-weight:600">${esc(r.val).replace(/\n/g, '<br>')}</td></tr>`)
+    .join('');
+
+  const who = clean(body.fullName, 120) || (body.email as string);
+  const type = clean(body.financingType, 80);
 
   try {
     const resend = new Resend(apiKey);
     const { error } = await resend.emails.send({
       from: FROM,
       to: TO,
-      replyTo: email,
-      subject: `Nueva solicitud de consulta — ${safeName || email}`,
-      text:
-        `Nueva solicitud desde la web de Enigma Enterprises\n\n` +
-        `Email: ${email}\n` +
-        (safeName ? `Nombre: ${safeName}\n` : '') +
-        (safeMsg ? `\nMensaje:\n${safeMsg}\n` : ''),
+      replyTo: body.email as string,
+      subject: `New funding request — ${who}${type ? ` (${type})` : ''}`,
+      text: `New funding request from the Enigma Enterprises website\n\n${textLines}`,
+      html: `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#111">
+        <h2 style="font-family:Georgia,serif;color:#8a1a24;margin:0 0 4px">New funding request</h2>
+        <p style="color:#666;margin:0 0 16px">Submitted from enigmaenterprisesllc.org</p>
+        <table style="border-collapse:collapse">${htmlRows}</table>
+      </div>`,
     });
     if (error) return json({ ok: false, error: 'send_failed' }, 502);
     return json({ ok: true });
