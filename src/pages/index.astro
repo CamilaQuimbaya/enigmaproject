@@ -1,6 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { financing, realEstate, products } from '../data/services';
+import { financing, realEstate, products, exclusive } from '../data/services';
 
 const LOGO = '/enigma-logo-redgold.png';
 // Números de confianza (valores FIJOS y reales — nunca "0"). Ajustar a las cifras reales de Felix.
@@ -112,7 +112,7 @@ const faqs = [
       <p data-reveal style="max-width:62ch;font-size:clamp(16px,1.7vw,19px);line-height:1.7;color:#AEB4BF;font-weight:300;">Enigma Enterprises is a consulting and referral firm. We connect business owners, real estate investors, entrepreneurs and brokers with lenders, private capital partners and the right financing solutions — with strategy and compliance guiding every introduction.</p>
       <div data-reveal data-hero-actions style="display:flex;gap:14px;margin-top:8px;flex-wrap:wrap;justify-content:center;">
         <a href="#apply" class="btn-gold" data-magnetic style="font-size:14px;padding:17px 36px;">Submit a Funding Request</a>
-        <a href="#apply" class="btn-outline" data-magnetic style="font-size:14px;padding:17px 32px;">Request a Consultation</a>
+        <a href="https://calendly.com/enigmaenterprises1/30min?month=2026-07" target="_blank" rel="noopener" class="btn-outline" data-magnetic style="font-size:14px;padding:17px 32px;">Request a Consultation</a>
       </div>
       <div data-reveal style="display:flex;gap:10px 24px;flex-wrap:wrap;justify-content:center;margin-top:6px;">
         {['No cost · No obligation', 'Licensed lender network', '100% confidential'].map((t) => (
@@ -319,6 +319,45 @@ const faqs = [
     </div>
   </section>
 
+  <!-- ===== COSTURA DORADA (exclusive) ===== -->
+  <div class="seam" aria-hidden="true"></div>
+
+  <!-- ===== EXCLUSIVE — fondo inmersivo ===== -->
+  <section class="bg-section" style="padding:clamp(56px,7vw,90px) clamp(18px,4vw,48px) clamp(72px,9vw,120px);">
+    <div class="bg-layer"><img src="/img/1507679799987-c73779587ccf.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" /></div>
+    <div class="bg-veil" style="background:linear-gradient(180deg,rgba(10,13,18,.9),rgba(8,11,16,.92));"></div>
+    <div style="width:min(1180px,100%);margin:0 auto;">
+      <div data-reveal style="display:flex;flex-direction:column;gap:14px;margin-bottom:42px;">
+        <span class="eyebrow">EXCLUSIVE SERVICES</span>
+        <h2 class="h2">Beyond funding — building the foundation.</h2>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1px;background:rgba(111,19,32,.14);border:1px solid rgba(111,19,32,.14);border-radius:3px;overflow:hidden;">
+        {exclusive.map((c, i) => (
+          <a href="https://primecorporateservices.com/enigmaenterprisesllc/" target="_blank" rel="noopener" data-reveal="flip" data-ex style={`background:#0B0F15;padding:36px 30px;display:flex;flex-direction:column;gap:12px;min-height:220px;transition-delay:${(i * 0.08).toFixed(2)}s;`}>
+            <span style="font-family:'Bodoni Moda',serif;font-size:20px;color:#6F1320;">0{c.n}</span>
+            <h3 style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:22px;color:#F2EEE6;line-height:1.15;">{c.name}</h3>
+            <p style="margin:0;font-size:14px;line-height:1.6;color:#9AA0AB;font-weight:300;flex:1;">{c.desc}</p>
+            <span class="gold-link" style="font-size:12.5px;">Get started →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== MERCHANT SERVICES — bordes diagonales + fondo ===== -->
+  <section class="bg-section clip-both sweep" style="padding:clamp(92px,11vw,128px) clamp(18px,4vw,48px);">
+    <div class="bg-layer"><img src="/img/1556742502-ec7c0e9f34b1.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async" /></div>
+    <div class="bg-veil" style="background:linear-gradient(180deg,rgba(8,11,16,.9),rgba(12,16,23,.85),rgba(8,11,16,.9));"></div>
+    <div data-reveal="zoom" data-split style="width:min(1100px,100%);margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:36px;align-items:center;border:1px solid rgba(111,19,32,.18);border-radius:3px;padding:clamp(34px,4vw,56px);background:rgba(255,255,255,.025);backdrop-filter:blur(8px);">
+      <div style="display:flex;flex-direction:column;gap:14px;">
+        <span class="eyebrow">MERCHANT SERVICES</span>
+        <h2 style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(28px,3.6vw,42px);line-height:1.12;color:#F4F0E8;">Free credit card processing review.</h2>
+        <p style="font-size:15.5px;line-height:1.7;color:#AEB4BF;font-weight:300;max-width:54ch;">Most businesses overpay on card processing fees. We'll audit your current statements at no cost and show you exactly where margin is leaking — and how to recover it.</p>
+      </div>
+      <a href="https://www.hightechpayments.com/enigma-enterprises-llc/" target="_blank" rel="noopener" class="btn-gold" data-magnetic style="flex:none;text-align:center;font-size:14px;padding:16px 32px;">Get a Free Fee Review →</a>
+    </div>
+  </section>
+
   <!-- ===== EDUCATION ===== -->
   <section id="education" style="padding:clamp(72px,9vw,120px) clamp(18px,4vw,48px);">
     <div style="width:min(1180px,100%);margin:0 auto;">
@@ -331,13 +370,13 @@ const faqs = [
           <span style="font-size:11px;letter-spacing:.28em;color:#6F1320;font-weight:600;">SIGNATURE PROGRAM</span>
           <h3 style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(26px,3vw,36px);color:#F4F0E8;line-height:1.1;">Wealthy Trustee Program</h3>
           <p style="font-size:15px;line-height:1.7;color:#AEB4BF;font-weight:300;">A deep education in trusts, asset protection, and generational wealth structures — designed to help you hold and transfer what you build with intention and discretion.</p>
-          <a href="#contact" class="gold-link" style="margin-top:6px;font-size:13.5px;">Join the Program →</a>
+          <a href="https://wealthytrustee.com/home-2975?am_id=felix2172" target="_blank" rel="noopener" class="gold-link" style="margin-top:6px;font-size:13.5px;">Join the Program →</a>
         </div>
         <div data-reveal="right" class="lift" style="position:relative;overflow:hidden;border:1px solid rgba(111,19,32,.2);border-radius:3px;padding:clamp(34px,4vw,52px);background:linear-gradient(155deg,rgba(12,16,23,.72),rgba(8,11,16,.93)),url('/img/1600880292203-757bb62b4baf.jpg') center/cover;display:flex;flex-direction:column;gap:16px;">
           <span style="font-size:11px;letter-spacing:.28em;color:#6F1320;font-weight:600;">FREE WEBINAR</span>
           <h3 style="font-family:'Bodoni Moda',serif;font-weight:600;font-size:clamp(26px,3vw,36px);color:#F4F0E8;line-height:1.1;">Business Acquisition Webinar</h3>
           <p style="font-size:15px;line-height:1.7;color:#AEB4BF;font-weight:300;">Learn how to buy existing, cash-flowing businesses — sourcing, valuation, deal structure, and the funding that makes acquisitions possible. Live, free, and no obligation.</p>
-          <a href="#contact" class="gold-link" style="margin-top:6px;font-size:13.5px;">Reserve My Seat →</a>
+          <a href="https://event.webinarjam.com/5w46z/register/glmz6a6" target="_blank" rel="noopener" class="gold-link" style="margin-top:6px;font-size:13.5px;">Reserve My Seat →</a>
         </div>
       </div>
     </div>
@@ -387,7 +426,7 @@ const faqs = [
       <span class="eyebrow">BECOME A PARTNER</span>
       <h2 class="h2" style="max-width:18ch;">Start Your Own Funding Agency.</h2>
       <p class="lead" style="max-width:58ch;">Join our affiliate program and build a business around the capital network we've spent years developing. We provide the lenders, the products, and the playbook — you bring the relationships.</p>
-      <a href="#contact" class="btn-gold" style="margin-top:6px;font-size:14px;padding:16px 38px;">Become an Affiliate</a>
+      <a href="https://calendly.com/enigmaenterprises1/30min" target="_blank" rel="noopener" class="btn-gold" data-magnetic style="margin-top:6px;font-size:14px;padding:16px 38px;">Become an Affiliate</a>
     </div>
   </section>
 
@@ -569,7 +608,7 @@ const faqs = [
         <div class="footer-col">
           <span class="footer-h">Get Funded</span>
           <a class="flink" href="#apply">Submit a Request</a>
-          <a class="flink" href="#apply">Request a Consultation</a>
+          <a class="flink" href="https://calendly.com/enigmaenterprises1/30min?month=2026-07" target="_blank" rel="noopener">Request a Consultation</a>
           <a class="flink" href="#apply">Brokers &amp; Partners</a>
         </div>
         <div class="footer-col">
