@@ -258,8 +258,10 @@ html:not(.js) [data-stagger] {
   will-change: transform;
 }
 @media (max-width: 880px) {
-  .founder-portrait { min-height: clamp(380px, 96vw, 580px); }
-  .founder-portrait img { width: 84%; max-width: 430px; }
+  .founder-portrait { min-height: clamp(360px, 92vw, 520px); }
+  .founder-portrait img { width: 82%; max-width: 380px; }
+  /* el logo de fondo se ancla detrás del retrato (arriba), no sobre el texto */
+  .about-logo-bg { top: 22%; width: min(66vw, 340px); opacity: .06; }
 }
 
 /* ---------- Inputs ---------- */
