@@ -533,6 +533,41 @@ html { overflow-x: hidden; }
   color: #9AA0AB; font-weight: 300;
 }
 
+/* ---------- Programa de capital privado (panel desplegable elegante) ---------- */
+.syndicate-details { display: grid; grid-template-rows: 1fr; }
+.js .syndicate-details { grid-template-rows: 0fr; transition: grid-template-rows .55s cubic-bezier(.22,1,.36,1); }
+.js .syndicate-details[data-open="true"] { grid-template-rows: 1fr; }
+.syndicate-details-inner { overflow: hidden; }
+.syn-body {
+  display: flex; flex-direction: column;
+  padding: clamp(28px, 4vw, 44px) clamp(20px, 4vw, 44px);
+  border: 1px solid var(--line); border-top: none; border-radius: 0 0 3px 3px;
+  background: rgba(15, 19, 26, 0.6); backdrop-filter: blur(8px);
+}
+.js .syndicate-details .syn-body { transition: opacity .5s ease .12s, transform .55s cubic-bezier(.22,1,.36,1) .12s; }
+.js .syndicate-details:not([data-open="true"]) .syn-body { opacity: 0; transform: translateY(16px); }
+.syn-specs {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: rgba(111, 19, 32, 0.14); border: 1px solid rgba(111, 19, 32, 0.14);
+  border-radius: 3px; overflow: hidden;
+}
+.syn-spec { background: #0B0F15; padding: 22px 24px; display: flex; flex-direction: column; gap: 11px; transition: background .3s ease; }
+.syn-spec:hover { background: #10151E; }
+.syn-spec:last-child { grid-column: 1 / -1; }
+.syn-spec-head { display: flex; align-items: center; gap: 12px; }
+.syn-spec-ico {
+  display: grid; place-items: center; width: 36px; height: 36px; flex: none;
+  border-radius: 3px; color: var(--gold-3);
+  background: rgba(111, 19, 32, 0.12); border: 1px solid rgba(206, 85, 103, 0.22);
+}
+.syn-spec-ico svg { width: 18px; height: 18px; }
+.syn-spec-k { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--gold-3); font-weight: 600; }
+.syn-spec-v { margin: 0; font-size: 14px; line-height: 1.6; color: #AEB4BF; font-weight: 300; }
+.syn-disclaimer { margin: 22px 0 0; font-size: 11.5px; line-height: 1.66; color: #6E7480; font-weight: 300; }
+.syn-chevron { display: inline-block; margin-left: 9px; transition: transform .4s cubic-bezier(.22,1,.36,1); }
+[data-syndicate-toggle][aria-expanded="true"] .syn-chevron { transform: rotate(180deg); }
+@media (max-width: 640px) { .syn-specs { grid-template-columns: 1fr; } .syn-spec:last-child { grid-column: auto; } }
+
 /* ---------- Botón flotante de WhatsApp (glass vino, expande al hover) ---------- */
 .wa-fab {
   position: fixed; right: 26px; bottom: 88px; z-index: 150;
