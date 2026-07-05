@@ -6,7 +6,9 @@ export const prerender = false;
 
 // Destinatario y remitente. El remitente DEBE estar en un dominio verificado en Resend.
 const TO = 'Felix@EnigmaEnterprisesllc.com';
-const FROM = 'Enigma Enterprises <noreply@enigmaenterprisesllc.com>';
+// NOTA: el dominio del remitente debe estar verificado en Resend. Mantener
+// enigmaenterprisesllc.com hasta verificar enigmacapitalsolutions.com allí.
+const FROM = 'Enigma Capital Solutions <noreply@enigmaenterprisesllc.com>';
 
 const isEmail = (v: unknown): v is string =>
   typeof v === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) && v.length <= 254;
@@ -14,19 +16,15 @@ const isEmail = (v: unknown): v is string =>
 // Campos del formulario de solicitud (etiqueta legible por clave)
 const FIELDS: [string, string][] = [
   ['fullName', 'Full name'],
-  ['phone', 'Phone'],
   ['email', 'Email'],
-  ['company', 'Company'],
-  ['location', 'State / Country'],
-  ['financingType', 'Type of financing'],
-  ['amount', 'Amount requested'],
-  ['creditRange', 'Credit score range'],
-  ['timeInBusiness', 'Time in business'],
-  ['monthlyRevenue', 'Monthly revenue'],
-  ['collateral', 'Collateral available'],
-  ['role', 'Owner / Broker / Rep'],
-  ['description', 'Deal description'],
-  ['bestTime', 'Best time to contact'],
+  ['phone', 'Phone'],
+  ['company', 'Company name'],
+  ['amount', 'Funding amount requested'],
+  ['useOfFunds', 'Use of funds'],
+  ['country', 'Country / Location of project'],
+  ['collateralType', 'Type of collateral'],
+  ['role', 'Borrower / Broker / Referral partner'],
+  ['summary', 'Project summary'],
 ];
 
 const clean = (v: unknown, max = 2000) =>
@@ -58,7 +56,7 @@ export const POST: APIRoute = async ({ request }) => {
   if (!isEmail(body.email)) return json({ ok: false, error: 'invalid_email' }, 422);
 
   const rows = FIELDS.map(([key, label]) => {
-    const val = clean(body[key], key === 'description' ? 4000 : 200);
+    const val = clean(body[key], key === 'summary' ? 4000 : 200);
     return { label, val: val || '—' };
   });
 
@@ -68,7 +66,7 @@ export const POST: APIRoute = async ({ request }) => {
     .join('');
 
   const who = clean(body.fullName, 120) || (body.email as string);
-  const type = clean(body.financingType, 80);
+  const type = clean(body.role, 80);
 
   try {
     const resend = new Resend(apiKey);
@@ -77,10 +75,10 @@ export const POST: APIRoute = async ({ request }) => {
       to: TO,
       replyTo: body.email as string,
       subject: `New funding request — ${who}${type ? ` (${type})` : ''}`,
-      text: `New funding request from the Enigma Enterprises website\n\n${textLines}`,
+      text: `New funding request from the Enigma Capital Solutions website\n\n${textLines}`,
       html: `<div style="font-family:Arial,Helvetica,sans-serif;font-size:14px;color:#111">
         <h2 style="font-family:Georgia,serif;color:#8a1a24;margin:0 0 4px">New funding request</h2>
-        <p style="color:#666;margin:0 0 16px">Submitted from enigmaenterprisesllc.org</p>
+        <p style="color:#666;margin:0 0 16px">Submitted from enigmacapitalsolutions.com</p>
         <table style="border-collapse:collapse">${htmlRows}</table>
       </div>`,
     });

@@ -3,26 +3,27 @@ import '../styles/global.css';
 
 interface Props { title?: string; description?: string; image?: string; }
 const {
-  title = 'Enigma Enterprises LLC · Private Capital & Business Solutions',
-  description = 'A financial consulting and referral firm connecting entrepreneurs and business owners with private capital and licensed lenders — funding, credit, real estate and business solutions.',
+  title = 'Enigma Capital Solutions · Commercial Funding & Private Capital Consulting',
+  description = 'Enigma Capital Solutions, a brand of Enigma Enterprises LLC, helps qualified businesses, real estate investors, developers, brokers, and project principals explore commercial funding and private capital options through trusted lending relationships.',
   image = '/enigma-logo-redgold.png',
 } = Astro.props;
-const site = Astro.site ?? new URL('https://enigmaenterprisesllc.org');
+const site = Astro.site ?? new URL('https://enigmacapitalsolutions.com');
 const canonical = new URL(Astro.url.pathname, site).href;
 const ogImage = new URL(image, site).href;
 
 const jsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'FinancialService',
-  name: 'Enigma Enterprises LLC',
+  '@type': 'ProfessionalService',
+  name: 'Enigma Capital Solutions',
+  legalName: 'Enigma Enterprises LLC',
   description,
   url: site.href,
   logo: ogImage,
   image: ogImage,
   telephone: '+1-413-455-0488',
   email: 'Felix@EnigmaEnterprisesLLC.com',
-  slogan: 'Private Capital & Business Solutions',
-  areaServed: 'US',
+  slogan: 'Commercial Funding & Private Capital Consulting',
+  areaServed: 'Worldwide',
   address: { '@type': 'PostalAddress', addressLocality: 'Springfield', addressRegion: 'MA', addressCountry: 'US' },
   sameAs: [
     'https://www.instagram.com/enigmaenterprisesllc/',
@@ -41,7 +42,7 @@ const jsonLd = {
     <script is:inline>document.documentElement.classList.add('js')</script>
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="keywords" content="business funding, private capital, credit repair, business credit, real estate financing, hard money loans, merchant cash advance, Enigma Enterprises" />
+    <meta name="keywords" content="commercial funding, private capital, real estate funding, business funding, bridge funding, asset-based funding, international project funding, broker referrals, Enigma Capital Solutions, Enigma Enterprises LLC" />
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0A0D12" />
     <link rel="canonical" href={canonical} />
@@ -51,7 +52,7 @@ const jsonLd = {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonical} />
-    <meta property="og:site_name" content="Enigma Enterprises LLC" />
+    <meta property="og:site_name" content="Enigma Capital Solutions" />
     <meta property="og:image" content={ogImage} />
     <meta property="og:locale" content="en_US" />
 
